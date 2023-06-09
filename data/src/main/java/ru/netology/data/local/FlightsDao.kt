@@ -11,6 +11,8 @@ import ru.netology.data.local.entity.FlightEntity
 import ru.netology.data.local.entity.FlightsWithSeatsEntity
 import ru.netology.data.local.entity.LocalLikedFlightEntity
 import ru.netology.data.local.entity.SeatEntity
+import ru.netology.domain.model.DatabaseError
+import java.lang.Exception
 
 @Dao
 interface FlightsDao {
@@ -23,6 +25,7 @@ interface FlightsDao {
 
     @Transaction
     suspend fun insert(flights: List<FlightEntity>, seats: List<SeatEntity>) {
+        deleteSeats()
         insertFlights(flights)
         insertSeats(seats)
     }
@@ -32,11 +35,20 @@ interface FlightsDao {
     fun getAll(): Flow<List<FlightsWithSeatsEntity>>
 
     @Insert
-    fun like(likedFlight: LocalLikedFlightEntity)
+    suspend fun like(likedFlight: LocalLikedFlightEntity)
 
     @Delete
-    fun unlike(likedFlight: LocalLikedFlightEntity)
+    suspend fun unlike(likedFlight: LocalLikedFlightEntity)
 
     @Query("SELECT flight_id FROM liked_flights")
-    fun getAllLiked(): Flow<List<Long>>
+    fun getAllLiked(): Flow<List<String>>
+
+    @Transaction
+    @Query("SELECT * FROM flights WHERE search_token = :id")
+    suspend fun getFlightById(id: String) : FlightsWithSeatsEntity?
+
+    @Query("DELETE FROM seats")
+    suspend fun deleteSeats()
+
+
 }
