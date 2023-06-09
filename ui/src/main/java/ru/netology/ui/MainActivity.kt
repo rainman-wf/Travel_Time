@@ -2,5 +2,4 @@ package ru.netology.ui
 
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity(){
-}
+class MainActivity : AppCompatActivity(R.layout.activity_main)
