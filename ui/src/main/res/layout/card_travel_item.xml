@@ -1,15 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/Widget.Material3.CardView.Elevated"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    >
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"/>
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.Icon"
+            android:id="@+id/favorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/transparent"
+            app:icon="@drawable/like"
+            app:iconTint="?attr/colorOnSurface"
+            app:iconSize="32dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="8700"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:textColor="?attr/colorPrimary"/>
+
+        <ImageView
+            android:layout_marginTop="4dp"
+            android:id="@+id/start_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/circle"
+            android:padding="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price"
+            app:srcCompat="@drawable/flight_24"
+            android:rotation="90"
+            android:importantForAccessibility="no"
+            app:tint="?attr/colorOnPrimary" />
+
+        <ImageView
+            android:id="@+id/end_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_icon"
+            app:srcCompat="@drawable/flight_24"
+            android:rotation="-90"
+            android:layout_marginTop="4dp"
+            android:importantForAccessibility="no"
+            android:background="@drawable/circle"
+            android:padding="4dp"
+            app:tint="?attr/colorOnPrimary" />
+
+        <TextView
+            android:id="@+id/start_code"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/start_icon"
+            app:layout_constraintStart_toEndOf="@+id/start_icon"
+            app:layout_constraintTop_toBottomOf="@+id/price"
+            tools:text="MOW" />
+
+        <TextView
+            android:id="@+id/start_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/start_code"
+            app:layout_constraintStart_toEndOf="@+id/start_code"
+            tools:text="Moscow" />
+
+        <TextView
+            android:id="@+id/end_code"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/end_icon"
+            app:layout_constraintEnd_toEndOf="@+id/start_code"
+            app:layout_constraintStart_toStartOf="@+id/start_code"
+            app:layout_constraintTop_toBottomOf="@+id/start_icon"
+            tools:text="LED" />
+
+        <TextView
+            android:id="@+id/end_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/end_code"
+            app:layout_constraintStart_toStartOf="@+id/start_city"
+            tools:text="Saint Petersburg" />
+
+        <TextView
+            android:id="@+id/start_date"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBaseline_toBaselineOf="@id/start_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="FRY 02.06"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/end_date"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBaseline_toBaselineOf="@id/end_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="FRY 02.07" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </com.google.android.material.card.MaterialCardView>

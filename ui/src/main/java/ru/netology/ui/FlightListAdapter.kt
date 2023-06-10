@@ -6,14 +6,33 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.ui.databinding.CardTravelItemBinding
+import java.time.format.DateTimeFormatter
 
-class FlightListAdapter : ListAdapter<LikableFlight, FlightListAdapter.ViewHolder>(Diff()) {
+class FlightListAdapter(
+    private val onFlightItemClickListener: OnFlightItemClickListener
+) : ListAdapter<LikableFlight, FlightListAdapter.ViewHolder>(Diff()) {
 
     inner class ViewHolder(private val binding: CardTravelItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(flight: LikableFlight) {
-            binding.textView.text = flight.flight.searchToken
+
+            binding.apply {
+                startCode.text = flight.flight.startLocationCode
+                startCity.text = flight.flight.startCity
+                startDate.text = flight.flight.startDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
+                endCode.text = flight.flight.endLocationCode
+                endCity.text = flight.flight.endCity
+                endDate.text = flight.flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
+                favorite.isChecked = flight.liked
+                favorite.setOnClickListener {
+                    onFlightItemClickListener.onLikeClicked(flight)
+                }
+                root.setOnClickListener {
+                    onFlightItemClickListener.onItemClicked(flight)
+                }
+                price.text = flight.flight.price.toString()
+            }
         }
     }
 

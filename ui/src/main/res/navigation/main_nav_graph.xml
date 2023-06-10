@@ -18,5 +18,9 @@
         android:id="@+id/travelDetailsFragment"
         android:name="ru.netology.ui.TravelDetailsFragment"
         android:label="fragment_travel_details"
-        tools:layout="@layout/fragment_travel_details" />
+        tools:layout="@layout/fragment_travel_details" >
+        <argument
+            android:name="filght_id"
+            app:argType="string" />
+    </fragment>
 </navigation>
