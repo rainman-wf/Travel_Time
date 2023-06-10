@@ -19,13 +19,13 @@
             </set>
             <set>
                 <objectAnimator
-                    android:duration="300"
+                    android:duration="150"
                     android:propertyName="scaleY"
                     android:valueFrom="1"
                     android:valueTo="1.5"
                     android:valueType="floatType"/>
                 <objectAnimator
-                    android:duration="300"
+                    android:duration="150"
                     android:propertyName="scaleY"
                     android:valueFrom="1.5"
                     android:valueTo="1"

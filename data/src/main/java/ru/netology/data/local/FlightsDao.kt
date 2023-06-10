@@ -23,10 +23,6 @@ interface FlightsDao {
     @Query("SELECT * FROM flights")
     fun getAll(): Flow<List<FlightsWithSeatsEntity>>
 
-    @Transaction
-    @Query("SELECT * FROM flights")
-    suspend fun getAllAlt(): List<FlightsWithSeatsEntity>
-
     @Insert
     suspend fun like(likedFlight: LocalLikedFlightEntity)
 
@@ -36,5 +32,8 @@ interface FlightsDao {
     @Transaction
     @Query("SELECT * FROM flights WHERE search_token = :id")
     suspend fun getFlightById(id: String) : FlightsWithSeatsEntity?
+
+    @Query("UPDATE flights SET start_location_code=start_location_code")
+    suspend fun trigger()
 
 }

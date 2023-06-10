@@ -33,6 +33,8 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
 
         binding.flightList.adapter = adapter
 
+        binding.flightList.itemAnimator = null
+
         viewModel.flights.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }

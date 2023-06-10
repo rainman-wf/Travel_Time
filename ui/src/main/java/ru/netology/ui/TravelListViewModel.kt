@@ -37,7 +37,7 @@ class TravelListViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            if (isLiked) repository.like(flightId) else repository.unlike(flightId)
+            if (!isLiked) repository.like(flightId) else repository.unlike(flightId)
         }
     }
 }

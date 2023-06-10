@@ -1,10 +1,7 @@
 package ru.netology.data.impl
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import ru.netology.common.utils.log
 import ru.netology.data.local.FlightsDao
 import ru.netology.data.local.entity.FlightsWithSeatsEntity
 import ru.netology.data.local.entity.LocalLikedFlightEntity
@@ -24,22 +21,7 @@ class FlightsRepositoryImpl @Inject constructor(
 ) : FlightsRepository {
 
     override val flights: Flow<List<Flight>> =
-        dao.getAll().catch {
-            log("error")
-            it.stackTraceToString().log()
-        }.map {
-            log("on flow")
-            it.log()
-            it.map(FlightsWithSeatsEntity::toModel)
-        }
-
-    init {
-        repositoryScope.launch {
-            log("init")
-            dao.getAllAlt().log()
-        }
-
-    }
+        dao.getAll().map { it.map(FlightsWithSeatsEntity::toModel) }
 
     override suspend fun like(id: String) {
         dbQuery { dao.like(LocalLikedFlightEntity(id)) }
