@@ -10,13 +10,10 @@ interface FlightsRepository {
     val repositoryScope: CoroutineScope get() = CoroutineScope(Dispatchers.Default)
 
     val flights: Flow<List<Flight>>
-    val liked: Flow<List<String>>
 
     suspend fun like(id: String)
     suspend fun unlike(id: String)
 
     suspend fun getById(id: String): Flight?
-    suspend fun isLiked(id: String) : Boolean
-
     suspend fun load()
 }

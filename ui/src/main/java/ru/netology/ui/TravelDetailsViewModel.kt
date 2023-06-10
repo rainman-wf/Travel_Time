@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.netology.common.utils.log
-import ru.netology.domain.model.DatabaseError
+import ru.netology.domain.model.Flight
 import ru.netology.domain.repository.FlightsRepository
 import javax.inject.Inject
 
@@ -16,8 +15,8 @@ class TravelDetailsViewModel @Inject constructor(
     private val repository: FlightsRepository
 ) : ViewModel() {
 
-    private val _flight = MutableLiveData<LikableFlight>()
-    val flight: LiveData<LikableFlight> get() = _flight
+    private val _flight = MutableLiveData<Flight>()
+    val flight: LiveData<Flight> get() = _flight
 
     val errorState = SingleLiveEvent<Unit>()
 
@@ -28,24 +27,18 @@ class TravelDetailsViewModel @Inject constructor(
                 return@launch
             }
 
-            val liked = try {
-                repository.isLiked(id)
-            } catch (e: DatabaseError) {
-                log(e.message)
-                return@launch
-            }
-            _flight.postValue(LikableFlight(flight, liked))
+            _flight.postValue(flight)
         }
     }
 
     fun like(id: String) {
         viewModelScope.launch {
-            val old = _flight.value ?: run {
+            repository.like(id)
+            val new = repository.getById(id) ?: run {
                 errorState.postValue(Unit)
                 return@launch
             }
-            repository.like(id)
-            _flight.postValue(old.copy(liked = repository.isLiked(id)))
+            _flight.postValue(new)
         }
     }
 }

@@ -20,6 +20,7 @@ fun FlightsWithSeatsEntity.toModel(): Flight {
         startCity = flight.startCity,
         startDate = flight.startDate,
         startLocationCode = flight.startLocationCode,
+        isLiked = liked != null
     )
 }
 
@@ -31,7 +32,6 @@ fun SeatEntity.toModel() =
 
 fun Seat.toEntity(flightId: String) =
     SeatEntity(
-        localKey = 0,
         flightId = flightId,
         count = count,
         passengerType = passengerType

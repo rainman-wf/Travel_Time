@@ -1,8 +1,10 @@
 package ru.netology.data.impl
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
+import ru.netology.common.utils.log
 import ru.netology.data.local.FlightsDao
 import ru.netology.data.local.entity.FlightsWithSeatsEntity
 import ru.netology.data.local.entity.LocalLikedFlightEntity
@@ -21,10 +23,23 @@ class FlightsRepositoryImpl @Inject constructor(
     private val api: FlightsApi
 ) : FlightsRepository {
 
-    override val liked: Flow<List<String>> = dao.getAllLiked()
-
     override val flights: Flow<List<Flight>> =
-        dao.getAll().map { it.map(FlightsWithSeatsEntity::toModel) }
+        dao.getAll().catch {
+            log("error")
+            it.stackTraceToString().log()
+        }.map {
+            log("on flow")
+            it.log()
+            it.map(FlightsWithSeatsEntity::toModel)
+        }
+
+    init {
+        repositoryScope.launch {
+            log("init")
+            dao.getAllAlt().log()
+        }
+
+    }
 
     override suspend fun like(id: String) {
         dbQuery { dao.like(LocalLikedFlightEntity(id)) }
@@ -36,12 +51,6 @@ class FlightsRepositoryImpl @Inject constructor(
 
     override suspend fun getById(id: String): Flight? {
         return dbQuery { dao.getFlightById(id)?.toModel() }
-    }
-
-    override suspend fun isLiked(id: String): Boolean {
-        return withContext(repositoryScope.coroutineContext) {
-            dbQuery { dao.getLiked(id) } != null
-        }
     }
 
     override suspend fun load() {
@@ -56,6 +65,5 @@ class FlightsRepositoryImpl @Inject constructor(
         val flights = response.flights.map { it.toEntity() }
 
         dbQuery { dao.insert(flights, seats) }
-
     }
 }

@@ -12,6 +12,7 @@ data class Flight(
     val serviceClass: String,
     val startCity: String,
     val startDate: LocalDate,
-    val startLocationCode: String
+    val startLocationCode: String,
+    val isLiked: Boolean
 )
 

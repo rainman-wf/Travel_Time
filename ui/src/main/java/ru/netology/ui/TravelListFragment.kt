@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
-import ru.netology.common.utils.log
 import ru.netology.ui.databinding.FragmentTravelListBinding
 
 @AndroidEntryPoint
@@ -34,7 +33,7 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
 
         binding.flightList.adapter = adapter
 
-        viewModel.likableFlights.observe(viewLifecycleOwner) {
+        viewModel.flights.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 

@@ -32,7 +32,7 @@ class TravelDetailsFragment : Fragment(R.layout.fragment_travel_details) {
 
         viewModel.flight.observe(viewLifecycleOwner) {
             it.log()
-            binding.topToolbar.subtitle = "${it.flight.startCity} - ${it.flight.endCity}"
+            binding.topToolbar.subtitle = "${it.startCity} - ${it.endCity}"
         }
     }
 }

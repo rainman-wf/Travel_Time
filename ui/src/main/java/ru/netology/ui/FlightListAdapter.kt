@@ -5,33 +5,34 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ru.netology.domain.model.Flight
 import ru.netology.ui.databinding.CardTravelItemBinding
 import java.time.format.DateTimeFormatter
 
 class FlightListAdapter(
     private val onFlightItemClickListener: OnFlightItemClickListener
-) : ListAdapter<LikableFlight, FlightListAdapter.ViewHolder>(Diff()) {
+) : ListAdapter<Flight, FlightListAdapter.ViewHolder>(Diff()) {
 
     inner class ViewHolder(private val binding: CardTravelItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(flight: LikableFlight) {
+        fun bind(flight: Flight) {
 
             binding.apply {
-                startCode.text = flight.flight.startLocationCode
-                startCity.text = flight.flight.startCity
-                startDate.text = flight.flight.startDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
-                endCode.text = flight.flight.endLocationCode
-                endCity.text = flight.flight.endCity
-                endDate.text = flight.flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
-                favorite.isChecked = flight.liked
+                startCode.text = flight.startLocationCode
+                startCity.text = flight.startCity
+                startDate.text = flight.startDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
+                endCode.text = flight.endLocationCode
+                endCity.text = flight.endCity
+                endDate.text = flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
+                favorite.isChecked = flight.isLiked
                 favorite.setOnClickListener {
-                    onFlightItemClickListener.onLikeClicked(flight.flight.searchToken)
+                    onFlightItemClickListener.onLikeClicked(flight.searchToken)
                 }
                 root.setOnClickListener {
-                    onFlightItemClickListener.onItemClicked(flight.flight.searchToken)
+                    onFlightItemClickListener.onItemClicked(flight.searchToken)
                 }
-                price.text = flight.flight.price.toAmount()
+                price.text = flight.price.toAmount()
             }
         }
 
@@ -40,13 +41,13 @@ class FlightListAdapter(
         }
     }
 
-    class Diff : DiffUtil.ItemCallback<LikableFlight>() {
-        override fun areItemsTheSame(oldItem: LikableFlight, newItem: LikableFlight): Boolean {
+    class Diff : DiffUtil.ItemCallback<Flight>() {
+        override fun areItemsTheSame(oldItem: Flight, newItem: Flight): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: LikableFlight, newItem: LikableFlight): Boolean {
-            return oldItem.flight.searchToken == newItem.flight.searchToken
+        override fun areContentsTheSame(oldItem: Flight, newItem: Flight): Boolean {
+            return oldItem.searchToken == newItem.searchToken
         }
     }
 

@@ -29,7 +29,8 @@
         tools:listitem="@layout/card_travel_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:clipToPadding="false"
-        android:paddingVertical="4dp" />
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="4dp"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/loading_progress"
