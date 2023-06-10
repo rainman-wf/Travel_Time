@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
-    >
+    android:layout_marginVertical="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,57 +15,58 @@
         android:padding="8dp">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.Icon"
             android:id="@+id/favorite"
+            style="@style/Widget.Material3.Button.Icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/transparent"
-            app:icon="@drawable/like"
-            app:iconTint="@color/favorite"
-            app:iconSize="32dp"
+            android:checkable="true"
             android:padding="8dp"
+            app:icon="@drawable/like"
+            app:iconSize="32dp"
+            app:iconTint="@color/favorite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:checkable="true"/>
+            android:stateListAnimator="@animator/like"/>
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="?attr/colorPrimary"
             android:textSize="32sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="8700"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:textColor="?attr/colorPrimary" />
+            tools:text="8700" />
 
         <ImageView
-            android:layout_marginTop="4dp"
             android:id="@+id/start_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/circle"
+            android:importantForAccessibility="no"
             android:padding="4dp"
+            android:rotation="90"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price"
             app:srcCompat="@drawable/flight_24"
-            android:rotation="90"
-            android:importantForAccessibility="no"
             app:tint="?attr/colorOnPrimary" />
 
         <ImageView
             android:id="@+id/end_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/circle"
+            android:importantForAccessibility="no"
+            android:padding="4dp"
+            android:rotation="-90"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_icon"
             app:srcCompat="@drawable/flight_24"
-            android:rotation="-90"
-            android:layout_marginTop="4dp"
-            android:importantForAccessibility="no"
-            android:background="@drawable/circle"
-            android:padding="4dp"
             app:tint="?attr/colorOnPrimary" />
 
         <TextView
@@ -114,10 +114,10 @@
             android:id="@+id/start_date"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             app:layout_constraintBaseline_toBaselineOf="@id/start_city"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="FRY 02.06"
-            android:gravity="center"/>
+            tools:text="FRY 02.06" />
 
         <TextView
             android:id="@+id/end_date"
@@ -132,3 +132,4 @@
 
 
 </com.google.android.material.card.MaterialCardView>
+

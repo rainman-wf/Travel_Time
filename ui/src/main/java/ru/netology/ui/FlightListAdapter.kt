@@ -31,8 +31,12 @@ class FlightListAdapter(
                 root.setOnClickListener {
                     onFlightItemClickListener.onItemClicked(flight.flight.searchToken)
                 }
-                price.text = flight.flight.price.toString()
+                price.text = flight.flight.price.toAmount()
             }
+        }
+
+        private fun Int.toAmount() : String{
+            return "$this ${binding.root.context.resources.getString(R.string.currency)}"
         }
     }
 
@@ -44,7 +48,6 @@ class FlightListAdapter(
         override fun areContentsTheSame(oldItem: LikableFlight, newItem: LikableFlight): Boolean {
             return oldItem.flight.searchToken == newItem.flight.searchToken
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -60,5 +63,4 @@ class FlightListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 }
