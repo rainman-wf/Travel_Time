@@ -2,10 +2,13 @@ package ru.netology.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.transition.platform.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.ui.databinding.FragmentTravelListBinding
 
@@ -16,14 +19,28 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
     private lateinit var binding: FragmentTravelListBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         binding = FragmentTravelListBinding.bind(view)
 
-        val host = requireActivity().supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
+        val host =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         val controller = host.navController
 
+        postponeEnterTransition()
+
+        exitTransition = MaterialElevationScale(false)
+        reenterTransition = MaterialElevationScale(true)
+
         val adapter = FlightListAdapter(object : OnFlightItemClickListener {
-            override fun onItemClicked(flightId: String) {
-                controller.navigate(TravelListFragmentDirections.actionTravelListFragmentToTravelDetailsFragment(flightId))
+            override fun onItemClicked(flightId: String, view: View) {
+                val extras = FragmentNavigatorExtras(view to view.transitionName)
+                controller.navigate(
+                    TravelListFragmentDirections.actionTravelListFragmentToTravelDetailsFragment(
+                        flightId,
+                        view.transitionName
+                    ),
+                    extras
+                )
             }
 
             override fun onLikeClicked(flightId: String) {
@@ -31,9 +48,13 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
             }
         })
 
-        binding.flightList.adapter = adapter
-
-        binding.flightList.itemAnimator = null
+        binding.flightList.apply {
+            this.adapter = adapter
+            itemAnimator = null
+            doOnPreDraw {
+                startPostponedEnterTransition()
+            }
+        }
 
         viewModel.flights.observe(viewLifecycleOwner) {
             adapter.submitList(it)

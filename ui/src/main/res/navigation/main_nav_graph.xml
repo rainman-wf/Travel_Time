@@ -22,5 +22,8 @@
         <argument
             android:name="filght_id"
             app:argType="string" />
+        <argument
+            android:name="transition_name"
+            app:argType="string" />
     </fragment>
 </navigation>

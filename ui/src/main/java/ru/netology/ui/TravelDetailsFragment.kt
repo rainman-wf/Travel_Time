@@ -1,6 +1,7 @@
 package ru.netology.ui
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,10 +18,11 @@ class TravelDetailsFragment : Fragment(R.layout.fragment_travel_details) {
     private val args: TravelDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        viewModel.getFlightById(args.filghtId)
-
         binding = FragmentTravelDetailsBinding.bind(view)
+        binding.root.transitionName = args.transitionName
+
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.item_shared_element_transition)
+        viewModel.getFlightById(args.filghtId)
 
         val host = requireActivity().supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         val controller = host.navController

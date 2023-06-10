@@ -18,6 +18,8 @@ class FlightListAdapter(
 
         fun bind(flight: Flight) {
 
+            binding.root.transitionName = "transition_$adapterPosition"
+
             binding.apply {
                 startCode.text = flight.startLocationCode
                 startCity.text = flight.startCity
@@ -30,8 +32,9 @@ class FlightListAdapter(
                     onFlightItemClickListener.onLikeClicked(flight.searchToken)
                 }
                 root.setOnClickListener {
-                    onFlightItemClickListener.onItemClicked(flight.searchToken)
+                    onFlightItemClickListener.onItemClicked(flight.searchToken, binding.root)
                 }
+
                 price.text = flight.price.toAmount()
             }
         }
