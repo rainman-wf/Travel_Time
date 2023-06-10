@@ -2,6 +2,7 @@ package ru.netology.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -22,14 +23,13 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
         val controller = host.navController
 
         val adapter = FlightListAdapter(object : OnFlightItemClickListener {
-            override fun onItemClicked(flight: LikableFlight) {
-                controller.navigate(TravelListFragmentDirections.actionTravelListFragmentToTravelDetailsFragment(flight.flight.searchToken))
+            override fun onItemClicked(flightId: String) {
+                controller.navigate(TravelListFragmentDirections.actionTravelListFragmentToTravelDetailsFragment(flightId))
             }
 
-            override fun onLikeClicked(flight: LikableFlight) {
-                viewModel.like(flight.flight.searchToken)
+            override fun onLikeClicked(flightId: String) {
+                viewModel.like(flightId)
             }
-
         })
 
         binding.flightList.adapter = adapter
@@ -39,15 +39,13 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
         }
 
         viewModel.loadingState.observe(viewLifecycleOwner) {
-            when (it) {
-                is LoadingState.Load -> snack("LOADING...")
-                is LoadingState.Success -> snack("SUCCESS!")
-                is LoadingState.Error -> {
-                    log(it.message)
-                    snack(it.message)
-                }
-                else -> {}
-            }
+
+            binding.loadingText.isVisible = it == LoadingState.Load
+            binding.loadingProgress.isVisible = it == LoadingState.Load
+            binding.flightList.isVisible = !binding.loadingText.isVisible
+
+            if (it is LoadingState.Error) snack(it.message)
+
         }
 
     }

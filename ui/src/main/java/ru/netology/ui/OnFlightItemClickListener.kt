@@ -1,6 +1,6 @@
 package ru.netology.ui
 
 interface OnFlightItemClickListener {
-    fun onItemClicked(flight: LikableFlight)
-    fun onLikeClicked(flight: LikableFlight)
+    fun onItemClicked(flightId: String)
+    fun onLikeClicked(flightId: String)
 }

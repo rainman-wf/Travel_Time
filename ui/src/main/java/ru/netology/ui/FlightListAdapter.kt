@@ -26,10 +26,10 @@ class FlightListAdapter(
                 endDate.text = flight.flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
                 favorite.isChecked = flight.liked
                 favorite.setOnClickListener {
-                    onFlightItemClickListener.onLikeClicked(flight)
+                    onFlightItemClickListener.onLikeClicked(flight.flight.searchToken)
                 }
                 root.setOnClickListener {
-                    onFlightItemClickListener.onItemClicked(flight)
+                    onFlightItemClickListener.onItemClicked(flight.flight.searchToken)
                 }
                 price.text = flight.flight.price.toString()
             }

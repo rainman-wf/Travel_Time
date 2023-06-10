@@ -22,7 +22,7 @@
             android:layout_height="48dp"
             android:background="@color/transparent"
             app:icon="@drawable/like"
-            app:iconTint="?attr/colorOnSurface"
+            app:iconTint="@color/favorite"
             app:iconSize="32dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
             tools:text="8700"
             android:textStyle="bold"
             android:layout_marginStart="16dp"
-            android:textColor="?attr/colorPrimary"/>
+            android:textColor="?attr/colorPrimary" />
 
         <ImageView
             android:layout_marginTop="4dp"

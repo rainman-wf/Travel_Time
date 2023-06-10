@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.netology.domain.model.Flight
 import ru.netology.domain.repository.FlightsRepository
@@ -38,6 +39,7 @@ class TravelListViewModel @Inject constructor(
             loadingState.postValue(LoadingState.Load)
             try {
                 repository.load()
+                delay(3000)
                 loadingState.postValue(LoadingState.Success)
             } catch (e: Exception) {
                 loadingState.postValue(LoadingState.Error(e.message.toString()))
