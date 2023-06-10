@@ -10,7 +10,7 @@ suspend fun <T>dbQuery(query: suspend () -> T) : T {
     return try {
         query()
     } catch (e: Exception) {
-        throw DatabaseError
+        throw DatabaseError(e.stackTraceToString())
     }
 }
 

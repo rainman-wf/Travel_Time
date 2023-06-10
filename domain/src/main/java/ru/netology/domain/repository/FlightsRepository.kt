@@ -16,6 +16,7 @@ interface FlightsRepository {
     suspend fun unlike(id: String)
 
     suspend fun getById(id: String): Flight?
+    suspend fun isLiked(id: String) : Boolean
 
     suspend fun load()
 }

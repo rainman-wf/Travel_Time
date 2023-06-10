@@ -11,8 +11,6 @@ import ru.netology.data.local.entity.FlightEntity
 import ru.netology.data.local.entity.FlightsWithSeatsEntity
 import ru.netology.data.local.entity.LocalLikedFlightEntity
 import ru.netology.data.local.entity.SeatEntity
-import ru.netology.domain.model.DatabaseError
-import java.lang.Exception
 
 @Dao
 interface FlightsDao {
@@ -50,5 +48,6 @@ interface FlightsDao {
     @Query("DELETE FROM seats")
     suspend fun deleteSeats()
 
-
+    @Query("SELECT flight_id FROM liked_flights WHERE flight_id = :id")
+    fun getLiked(id: String) : String?
 }

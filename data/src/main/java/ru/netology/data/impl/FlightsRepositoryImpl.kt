@@ -2,9 +2,7 @@ package ru.netology.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.netology.common.utils.log
 import ru.netology.data.local.FlightsDao
 import ru.netology.data.local.entity.FlightsWithSeatsEntity
 import ru.netology.data.local.entity.LocalLikedFlightEntity
@@ -38,6 +36,12 @@ class FlightsRepositoryImpl @Inject constructor(
 
     override suspend fun getById(id: String): Flight? {
         return dbQuery { dao.getFlightById(id)?.toModel() }
+    }
+
+    override suspend fun isLiked(id: String): Boolean {
+        return withContext(repositoryScope.coroutineContext) {
+            dbQuery { dao.getLiked(id) } != null
+        }
     }
 
     override suspend fun load() {
