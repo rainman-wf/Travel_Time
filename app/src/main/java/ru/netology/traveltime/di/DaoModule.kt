@@ -1,4 +1,4 @@
-package ru.rainman.netology.app.di
+package ru.netology.traveltime.di
 
 import dagger.Module
 import dagger.Provides

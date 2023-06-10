@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.netology.common.utils.log
 import ru.netology.data.local.FlightsDao
 import ru.netology.data.local.entity.FlightsWithSeatsEntity
 import ru.netology.data.local.entity.LocalLikedFlightEntity
@@ -27,16 +28,8 @@ class FlightsRepositoryImpl @Inject constructor(
     override val flights: Flow<List<Flight>> =
         dao.getAll().map { it.map(FlightsWithSeatsEntity::toModel) }
 
-    init {
-        repositoryScope.launch {
-            withContext(repositoryScope.coroutineContext) {
-                load()
-            }
-        }
-    }
-
     override suspend fun like(id: String) {
-        dbQuery { dao.like(LocalLikedFlightEntity(id))    }
+        dbQuery { dao.like(LocalLikedFlightEntity(id)) }
     }
 
     override suspend fun unlike(id: String) {
@@ -47,9 +40,10 @@ class FlightsRepositoryImpl @Inject constructor(
         return dbQuery { dao.getFlightById(id)?.toModel() }
     }
 
-    private suspend fun load() {
+    override suspend fun load() {
         val response = apiRequest {
-            api.getAll(RequestCodeBody()) }
+            api.getAll(RequestCodeBody())
+        }
 
         val seats = response.flights.map { flight ->
             flight.seats.map { it.toEntity(flight.searchToken) }

@@ -14,7 +14,8 @@ suspend fun <T>dbQuery(query: suspend () -> T) : T {
     }
 }
 
-suspend fun <T>apiRequest(request: suspend () -> Response<T>) : T {
+suspend fun <T> apiRequest(request: suspend () -> Response<T>): T {
+
     val response = try {
         request()
     } catch (e: SocketException) {
@@ -22,8 +23,6 @@ suspend fun <T>apiRequest(request: suspend () -> Response<T>) : T {
     } catch (e: Exception) {
         throw NetworkError
     }
-
     if (!response.isSuccessful) throw ApiError(response.code(), response.message())
-
     return response.body() ?: throw ApiError(0, "null body responses")
 }

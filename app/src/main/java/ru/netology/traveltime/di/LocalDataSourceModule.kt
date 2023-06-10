@@ -1,4 +1,4 @@
-package ru.rainman.netology.app.di
+package ru.netology.traveltime.di
 
 import android.content.Context
 import androidx.room.Room
