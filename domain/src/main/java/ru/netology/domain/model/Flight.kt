@@ -1,5 +1,6 @@
 package ru.netology.domain.model
 
+import java.io.Serializable
 import java.time.LocalDate
 
 data class Flight(
@@ -14,5 +15,5 @@ data class Flight(
     val startDate: LocalDate,
     val startLocationCode: String,
     val isLiked: Boolean
-)
+) : Serializable
 

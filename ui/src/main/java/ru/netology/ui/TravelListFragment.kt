@@ -10,6 +10,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.transition.platform.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
+import ru.netology.domain.model.Flight
 import ru.netology.ui.databinding.FragmentTravelListBinding
 
 @AndroidEntryPoint
@@ -32,11 +33,11 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
         reenterTransition = MaterialElevationScale(true)
 
         val adapter = FlightListAdapter(object : OnFlightItemClickListener {
-            override fun onItemClicked(flightId: String, view: View) {
+            override fun onItemClicked(flight: Flight, view: View) {
                 val extras = FragmentNavigatorExtras(view to view.transitionName)
                 controller.navigate(
                     TravelListFragmentDirections.actionTravelListFragmentToTravelDetailsFragment(
-                        flightId,
+                        flight,
                         view.transitionName
                     ),
                     extras
@@ -47,6 +48,8 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
                 viewModel.like(flightId)
             }
         })
+
+
 
         binding.flightList.apply {
             this.adapter = adapter

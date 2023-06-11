@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/travelListFragment"
         android:name="ru.netology.ui.TravelListFragment"
-        android:label="fragment_travel_list"
+        android:label="@string/application_name"
         tools:layout="@layout/fragment_travel_list" >
         <action
             android:id="@+id/action_travelListFragment_to_travelDetailsFragment"
@@ -17,11 +17,11 @@
     <fragment
         android:id="@+id/travelDetailsFragment"
         android:name="ru.netology.ui.TravelDetailsFragment"
-        android:label="fragment_travel_details"
+        android:label="Travel Details"
         tools:layout="@layout/fragment_travel_details" >
         <argument
-            android:name="filght_id"
-            app:argType="string" />
+            android:name="flight"
+            app:argType="ru.netology.domain.model.Flight" />
         <argument
             android:name="transition_name"
             app:argType="string" />

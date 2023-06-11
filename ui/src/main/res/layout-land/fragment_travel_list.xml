@@ -6,26 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TravelListFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:liftOnScroll="true">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/application_name"
-            app:navigationIcon="@drawable/airplane"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:layout_scrollEffect="compress"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flight_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/card_travel_item"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"

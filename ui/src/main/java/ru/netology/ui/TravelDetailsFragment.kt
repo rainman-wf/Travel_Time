@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.ui.databinding.FragmentTravelDetailsBinding
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class TravelDetailsFragment : Fragment(R.layout.fragment_travel_details) {
@@ -19,20 +20,27 @@ class TravelDetailsFragment : Fragment(R.layout.fragment_travel_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentTravelDetailsBinding.bind(view)
-        binding.root.transitionName = args.transitionName
+        binding.travelInfo.root.transitionName = args.transitionName
 
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.item_shared_element_transition)
-        viewModel.getFlightById(args.filghtId)
 
-        val host = requireActivity().supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
-        val controller = host.navController
+        val flight = args.flight
 
-        binding.topToolbar.setNavigationOnClickListener {
-            controller.navigateUp()
+        binding.travelInfo.apply {
+            startCode.text = flight.startLocationCode
+            startCity.text = flight.startCity
+            startDate.text = flight.startDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
+            endCode.text = flight.endLocationCode
+            endCity.text = flight.endCity
+            endDate.text = flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
+            favorite.isChecked = flight.isLiked
+            favorite.setOnClickListener {
+
+            }
+
+            price.text = flight.price.toAmount(binding.root.context.getString(R.string.currency))
         }
 
-        viewModel.flight.observe(viewLifecycleOwner) {
-            binding.topToolbar.subtitle = "${it.startCity} - ${it.endCity}"
-        }
+
     }
 }
