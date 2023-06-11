@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                             AppCompatResources.getDrawable(this@MainActivity, R.drawable.back)
                         subtitle =
                             arguments?.let { "${it.getString("start_city")} - ${it.getString("end_city")}" }
+
                     }
                 }
             }

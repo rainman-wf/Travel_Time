@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.domain.model.Flight
 import ru.netology.ui.databinding.CardTravelItemBinding
+
 import java.time.format.DateTimeFormatter
 
 class FlightListAdapter(
