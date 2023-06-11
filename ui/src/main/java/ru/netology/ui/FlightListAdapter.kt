@@ -1,12 +1,8 @@
 package ru.netology.ui
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.BounceInterpolator
-import android.view.animation.LinearInterpolator
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,22 +14,12 @@ class FlightListAdapter(
     private val onFlightItemClickListener: OnFlightItemClickListener
 ) : ListAdapter<Flight, FlightListAdapter.ViewHolder>(Diff()) {
 
-    private val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1F, 1.5F, 1F)
-    private val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1F, 1.5F, 1F)
-
-
     inner class ViewHolder(private val binding: CardTravelItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(flight: Flight) {
 
-            val anim =
-                ObjectAnimator.ofPropertyValuesHolder(binding.travelInfo.favorite, scaleX, scaleY).apply {
-                    duration = 400
-                    interpolator = BounceInterpolator()
-                }
-
-            anim.end()
+            val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.like)
 
             binding.travelInfo.root.transitionName = "transition_$adapterPosition"
 
@@ -45,8 +31,8 @@ class FlightListAdapter(
                 endCity.text = flight.endCity
                 endDate.text = flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
                 favorite.isChecked = flight.isLiked
+                if (favorite.isChecked) favorite.startAnimation(anim)
                 favorite.setOnClickListener {
-                    if (!flight.isLiked) anim.start()
                     onFlightItemClickListener.onLikeClicked(flight.searchToken)
                 }
                 root.setOnClickListener {

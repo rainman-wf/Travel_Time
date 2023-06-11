@@ -21,7 +21,7 @@
         app:iconTint="@color/favorite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:toggleCheckedStateOnClick="false" />
+        app:toggleCheckedStateOnClick="false"/>
 
     <TextView
         android:id="@+id/price"
