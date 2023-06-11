@@ -3,6 +3,7 @@
 */build
 */libs
 !gradle.properties
+!gradle-wrapper.properties
 *.properties
 *.iml
 
