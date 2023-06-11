@@ -15,14 +15,14 @@ class FlightListAdapter(
     private val onFlightItemClickListener: OnFlightItemClickListener
 ) : ListAdapter<Flight, FlightListAdapter.ViewHolder>(Diff()) {
 
+    private var lastClickedPosition: Int = -1
+
     inner class ViewHolder(private val binding: CardTravelItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private var isClicked = false
+        private val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.like)
 
         fun bind(flight: Flight) {
-
-            val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.like)
 
             binding.travelInfo.root.transitionName = "transition_$adapterPosition"
 
@@ -35,13 +35,10 @@ class FlightListAdapter(
                 endDate.text = flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
                 favorite.isChecked = flight.isLiked
 
-                if (favorite.isChecked && isClicked) {
-                    favorite.startAnimation(anim)
-                    isClicked = false
-                }
+                if (flight.isLiked && lastClickedPosition == adapterPosition) favorite.startAnimation(anim)
 
                 favorite.setOnClickListener {
-                    isClicked = true
+                    lastClickedPosition = adapterPosition
                     onFlightItemClickListener.onLikeClicked(flight.searchToken)
                 }
 
