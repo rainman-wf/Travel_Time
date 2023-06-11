@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:paddingHorizontal="8dp"
+    android:paddingBottom="8dp"
+    android:layout_weight="1">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/favorite"
@@ -13,44 +15,53 @@
         android:layout_height="48dp"
         android:background="@color/transparent"
         android:checkable="true"
-        android:padding="8dp"
+        android:padding="12dp"
         app:icon="@drawable/like"
-        app:iconSize="32dp"
+        app:iconSize="24dp"
         app:iconTint="@color/favorite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:toggleCheckedStateOnClick="false" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textColor="?attr/colorPrimary"
-        android:textSize="32sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/favorite"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="8700" />
+        app:layout_constraintTop_toTopOf="@+id/favorite"
+        tools:text="8700"
+        android:textAppearance="?attr/textAppearanceHeadlineMedium" />
 
     <ImageView
         android:id="@+id/start_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/circle"
         android:importantForAccessibility="no"
         android:padding="4dp"
         android:rotation="90"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price"
+        app:layout_constraintTop_toBottomOf="@+id/top_barrier"
         app:srcCompat="@drawable/flight_24"
         app:tint="?attr/colorOnPrimary" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/top_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="price,favorite" />
+
     <ImageView
         android:id="@+id/end_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/circle"
         android:importantForAccessibility="no"
         android:padding="4dp"
@@ -65,47 +76,51 @@
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:gravity="center"
+        style="@style/BodyMediumCentered"
         app:layout_constraintBottom_toBottomOf="@+id/start_icon"
         app:layout_constraintStart_toEndOf="@+id/start_icon"
-        app:layout_constraintTop_toBottomOf="@+id/price"
+        app:layout_constraintTop_toTopOf="@+id/start_icon"
         tools:text="MOW" />
 
     <TextView
         android:id="@+id/start_city"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textStyle="bold"
+        android:layout_marginEnd="4dp"
+        style="@style/BodyMediumEllipsized.Bold"
         app:layout_constraintBaseline_toBaselineOf="@id/start_code"
+        app:layout_constraintEnd_toEndOf="@+id/date_barrier"
         app:layout_constraintStart_toEndOf="@+id/start_code"
-        tools:text="Moscow" />
+        tools:text="Moscow Moscow Moscow Moscow" />
 
     <TextView
         android:id="@+id/end_code"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/BodyMediumCentered"
         app:layout_constraintBottom_toBottomOf="@+id/end_icon"
         app:layout_constraintEnd_toEndOf="@+id/start_code"
         app:layout_constraintStart_toStartOf="@+id/start_code"
-        app:layout_constraintTop_toBottomOf="@+id/start_icon"
+        app:layout_constraintTop_toTopOf="@+id/end_icon"
         tools:text="LED" />
 
     <TextView
         android:id="@+id/end_city"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:layout_marginEnd="4dp"
+        style="@style/BodyMediumEllipsized.Bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/end_code"
+        app:layout_constraintEnd_toEndOf="@+id/date_barrier"
         app:layout_constraintStart_toStartOf="@+id/start_city"
-        tools:text="Saint Petersburg" />
+        tools:text="Saint Petersburg Saint Petersburg Saint Petersburg" />
 
     <TextView
         android:id="@+id/start_date"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/BodyMediumCentered"
         app:layout_constraintBaseline_toBaselineOf="@id/start_city"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="FRY 02.06" />
@@ -114,10 +129,17 @@
         android:id="@+id/end_date"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        style="@style/BodyMediumCentered"
         app:layout_constraintBaseline_toBaselineOf="@id/end_city"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="FRY 02.07" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/date_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="start_date,end_date" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

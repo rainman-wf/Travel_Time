@@ -15,30 +15,25 @@ class TravelDetailsViewModel @Inject constructor(
     private val repository: FlightsRepository
 ) : ViewModel() {
 
-    private val _flight = MutableLiveData<Flight>()
-    val flight: LiveData<Flight> get() = _flight
+    private val _flight = MutableLiveData<Flight?>()
+    val flight: LiveData<Flight?> = _flight
 
     val errorState = SingleLiveEvent<Unit>()
 
-    fun getFlightById(id: String) {
+    fun loadFlight(id: String) {
         viewModelScope.launch {
-            val flight = repository.getById(id) ?: run {
-                errorState.postValue(Unit)
-                return@launch
-            }
-
-            _flight.postValue(flight)
+            _flight.postValue(repository.getById(id))
         }
     }
 
     fun like(id: String) {
+        val isLiked = flight.value?.isLiked ?: run {
+            errorState.postValue(Unit)
+            return
+        }
         viewModelScope.launch {
-            repository.like(id)
-            val new = repository.getById(id) ?: run {
-                errorState.postValue(Unit)
-                return@launch
-            }
-            _flight.postValue(new)
+            if (!isLiked) repository.like(id) else repository.unlike(id)
+            loadFlight(id)
         }
     }
 }

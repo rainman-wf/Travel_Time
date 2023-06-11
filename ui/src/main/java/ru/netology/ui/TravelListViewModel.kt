@@ -31,9 +31,6 @@ class TravelListViewModel @Inject constructor(
         }
     }
 
-
-
-
     fun like(flightId: String) {
         val isLiked = flights.value!!.singleOrNull { it.searchToken == flightId }?.isLiked ?: kotlin.run {
             loadingState.postValue(LoadingState.Error("Invalid item"))

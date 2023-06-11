@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="BodyMedium" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
 
+    <style name="BodyMediumCentered" parent="BodyMedium">
+        <item name="android:gravity">center</item>
+    </style>
 
+    <style name="BodyMediumEllipsized" parent="BodyMedium">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="BodyMediumEllipsized.Bold" parent="BodyMediumEllipsized">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

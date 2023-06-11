@@ -20,10 +20,16 @@
         android:label="Travel Details"
         tools:layout="@layout/fragment_travel_details" >
         <argument
-            android:name="flight"
-            app:argType="ru.netology.domain.model.Flight" />
-        <argument
             android:name="transition_name"
+            app:argType="string" />
+        <argument
+            android:name="start_city"
+            app:argType="string" />
+        <argument
+            android:name="end_city"
+            app:argType="string" />
+        <argument
+            android:name="flight_id"
             app:argType="string" />
     </fragment>
 </navigation>

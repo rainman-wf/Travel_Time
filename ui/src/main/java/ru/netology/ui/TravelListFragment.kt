@@ -37,8 +37,10 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
                 val extras = FragmentNavigatorExtras(view to view.transitionName)
                 controller.navigate(
                     TravelListFragmentDirections.actionTravelListFragmentToTravelDetailsFragment(
-                        flight,
-                        view.transitionName
+                        view.transitionName,
+                        flight.startCity,
+                        flight.endCity,
+                        flight.searchToken
                     ),
                     extras
                 )
@@ -48,8 +50,6 @@ class TravelListFragment : Fragment(R.layout.fragment_travel_list) {
                 viewModel.like(flightId)
             }
         })
-
-
 
         binding.flightList.apply {
             this.adapter = adapter

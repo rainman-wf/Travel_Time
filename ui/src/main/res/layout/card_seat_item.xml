@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/age_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/age_category"
+        grid:layout_constraintStart_toStartOf="parent"
+        grid:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/passenger_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        grid:layout_constraintBaseline_toBaselineOf="@id/barrier"
+        grid:layout_constraintEnd_toEndOf="parent"
+        grid:layout_constraintStart_toEndOf="@+id/age_cat"
+        tools:text="Adult" />
+
+    <TextView
+        android:layout_marginTop="4dp"
+        android:id="@+id/seats_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        grid:layout_constraintStart_toStartOf="parent"
+        grid:layout_constraintTop_toBottomOf="@+id/age_cat"
+        android:text="@string/seats_count" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        grid:layout_constraintBaseline_toBaselineOf="@id/seats_count"
+        grid:layout_constraintEnd_toEndOf="parent"
+        grid:layout_constraintStart_toStartOf="@+id/passenger_type"
+        tools:text="3" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        grid:barrierDirection="end"
+        grid:constraint_referenced_ids="seats_count,age_cat" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

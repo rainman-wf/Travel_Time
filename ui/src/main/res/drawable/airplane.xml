@@ -1,8 +1,17 @@
-<vector android:height="24dp" android:viewportHeight="400"
-    android:viewportWidth="400" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+<vector android:height="40dp" android:viewportHeight="400"
+    android:viewportWidth="400" android:width="40dp"
+    xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <clip-path android:pathData="M0,0h400v400h-400z"/>
-        <path android:fillColor="#D749C8" android:pathData="M200,200m-200,0a200,200 0,1 1,400 0a200,200 0,1 1,-400 0"/>
+        <path android:pathData="M100,0L300,0A100,100 0,0 1,400 100L400,300A100,100 0,0 1,300 400L100,400A100,100 0,0 1,0 300L0,100A100,100 0,0 1,100 0z">
+            <aapt:attr name="android:fillColor">
+                <gradient android:endX="0" android:endY="400"
+                    android:startX="400" android:startY="0" android:type="linear">
+                    <item android:color="#FF48119B" android:offset="0"/>
+                    <item android:color="#FFCB11D9" android:offset="1"/>
+                </gradient>
+            </aapt:attr>
+        </path>
         <path android:fillColor="#D9D9D9" android:pathData="M177.81,253.64C96.39,278.98 71.44,296.39 60,281.58C45.23,262.46 94.43,229.36 160.01,188.89C169.73,182.89 179.81,177.46 190.1,171.12C201.24,164.25 211.68,157.99 221.46,152.33C248.75,136.55 270.95,125.46 289.26,118.96C321.77,107.41 342,110.32 356.65,127.1C357.91,128.55 358.83,130.25 359.39,132.18C365.88,154.77 321.87,208.81 177.81,253.64Z"/>
         <path android:fillColor="#488FF7" android:pathData="M356.65,127.1C342,110.32 321.77,107.41 289.26,118.96C297.48,132.9 302.4,143.18 311.73,144.46C322.74,145.96 336.37,140.43 359.39,132.18C358.83,130.25 357.91,128.55 356.65,127.1Z"/>
         <path android:fillColor="#488FF7" android:pathData="M160.01,188.89C169.73,182.89 179.81,177.46 190.1,171.12C201.24,164.25 211.68,157.99 221.46,152.33C190.75,138.43 152.37,125.11 142.63,124.56C112.54,122.87 79.07,154.19 93.9,163.08C98.14,165.62 133.27,179.22 160.01,188.89Z"/>
