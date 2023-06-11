@@ -18,6 +18,8 @@ class FlightListAdapter(
     inner class ViewHolder(private val binding: CardTravelItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private var isClicked = false
+
         fun bind(flight: Flight) {
 
             val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.like)
@@ -32,14 +34,23 @@ class FlightListAdapter(
                 endCity.text = flight.endCity
                 endDate.text = flight.endDate.format(DateTimeFormatter.ofPattern("E dd.MM"))
                 favorite.isChecked = flight.isLiked
-                if (favorite.isChecked) favorite.startAnimation(anim)
+
+                if (favorite.isChecked && isClicked) {
+                    favorite.startAnimation(anim)
+                    isClicked = false
+                }
+
                 favorite.setOnClickListener {
+                    isClicked = true
                     onFlightItemClickListener.onLikeClicked(flight.searchToken)
                 }
+
                 root.setOnClickListener {
                     onFlightItemClickListener.onItemClicked(flight, binding.travelInfo.root)
                 }
-                price.text = flight.price.toAmount(binding.root.context.getString(R.string.currency))
+
+                price.text =
+                    flight.price.toAmount(binding.root.context.getString(R.string.currency))
             }
         }
     }
