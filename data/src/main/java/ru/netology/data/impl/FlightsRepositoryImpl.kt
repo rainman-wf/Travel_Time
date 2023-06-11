@@ -40,6 +40,12 @@ class FlightsRepositoryImpl @Inject constructor(
             api.getAll(RequestCodeBody())
         }
 
+        val currentIds = dbQuery { dao.getFlightIds() }
+
+        val deletable = currentIds.minus(response.flights.map { it.searchToken }.toSet())
+
+        dbQuery { dao.deleteRange(deletable) }
+
         val seats = response.flights.map { flight ->
             flight.seats.map { it.toEntity(flight.searchToken) }
         }.flatten()

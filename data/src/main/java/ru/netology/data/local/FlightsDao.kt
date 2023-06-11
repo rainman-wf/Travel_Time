@@ -36,4 +36,9 @@ interface FlightsDao {
     @Query("UPDATE flights SET start_location_code=start_location_code")
     suspend fun trigger()
 
+    @Query("SELECT search_token FROM flights")
+    suspend fun getFlightIds() : List<String>
+
+    @Query("DELETE FROM flights WHERE search_token in (:ids)")
+    suspend fun deleteRange(ids: List<String>)
 }
