@@ -6,6 +6,10 @@ plugins {
 }
 
 android {
+    lintOptions {
+        disable "Instantiatable"
+    }
+
     namespace 'ru.netology.traveltime'
     compileSdk 33
 
