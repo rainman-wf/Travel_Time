@@ -38,12 +38,9 @@ class FlightListAdapter(
                 root.setOnClickListener {
                     onFlightItemClickListener.onItemClicked(flight, binding.travelInfo.root)
                 }
-
                 price.text = flight.price.toAmount(binding.root.context.getString(R.string.currency))
             }
         }
-
-
     }
 
     class Diff : DiffUtil.ItemCallback<Flight>() {

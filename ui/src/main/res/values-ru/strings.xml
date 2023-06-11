@@ -2,7 +2,6 @@
 <resources>
     <string name="loading">Загрузка…</string>
     <string name="currency">руб.</string>
-    <string name="age_category">Age category:</string>
-    <string name="order_ticket">Order ticket</string>
-    <string name="seats_count">Seats count:</string>
+    <string name="age_category">Возрастная категория:</string>
+    <string name="seats_count">Количество мест:</string>
 </resources>

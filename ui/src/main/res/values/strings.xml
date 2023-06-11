@@ -4,6 +4,5 @@
     <string name="currency">RUB</string>
     <string name="application_name" translatable="false">Travel Time</string>
     <string name="age_category">Age category:</string>
-    <string name="order_ticket">Order ticket</string>
     <string name="seats_count">Seats count:</string>
 </resources>
